@@ -47,12 +47,26 @@ h3 {
     bottom: 330px;
 }
 
+.my-skills-h2 {
+    text-align: left;
+}
+
 .skills-img {
-    width: 200px;
+    width: 25%;
+    float: left;
 }
 
 .education-img {
-    width: 200px;
+    width: 25%;
+    float: right;
+    margin-bottom: 10%;
+    margin-left: 30px;
+    position: relative;
+    top: 20px;
+}
+
+.education-text {
+    font-size: 80%;
 }
 
 .skills-table {
@@ -60,9 +74,11 @@ h3 {
     margin: 0 auto;
 }
 
-.education-ul {
-    margin: auto;
-    list-style-type: none;
+.skill-row {
+    width: 50%;
+    margin: 100px auto;
+    text-align: left;
+    line-height: 2;
 }
 
 .education-hr {
@@ -75,8 +91,49 @@ h3 {
 
 .footer-link {
     color: #11999E;
+    display: inline-block;
+    margin: 1rem;
+    font-size: 0.75em;
+    text-decoration: none;
+}
+
+.bottom-container {
+    background-color: #66BFBF;
+    padding-bottom: 1rem;
 }
 
 .btn {
-    color: #11999E;
+    background: #11cdd4;
+    background-image: -webkit-linear-gradient(top, #11cdd4, #11999e);
+    background-image: -moz-linear-gradient(top, #11cdd4, #11999e);
+    background-image: -ms-linear-gradient(top, #11cdd4, #11999e);
+    background-image: -o-linear-gradient(top, #11cdd4, #11999e);
+    background-image: linear-gradient(to bottom, #11cdd4, #11999e);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #30e3cb;
+    background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: -moz-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: -ms-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: -o-linear-gradient(top, #30e3cb, #2bc4ad);
+    background-image: linear-gradient(to bottom, #30e3cb, #2bc4ad);
+    text-decoration: none;
+}
+
+.contact-me {
+    margin-bottom: 3%;
+}
+
+.copyright {
+    color: white;
+    font-size: large;
 }
