@@ -10,7 +10,7 @@ h1 {
     font-family: "Sacramento", cursive;
     font-size: 5.625rem;
     color: #66bfbf;
-    line-height: 2;
+    line-height: 1;
 }
 
 h2 {
@@ -38,13 +38,13 @@ h3 {
 .top-cloud {
     position: absolute;
     right: 700px;
-    top: 250px;
+    top: 220px;
 }
 
 .bottom-cloud {
     position: absolute;
     left: 700px;
-    bottom: 300px;
+    bottom: 330px;
 }
 
 .skills-img {
