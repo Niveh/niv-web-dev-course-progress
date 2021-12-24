@@ -19,7 +19,13 @@ h1 {
 }
 
 h3 {
-    font-size: 2.5rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+p {
+    color: #8f8f8f;
 }
 
 /* Navigation Bar */
@@ -49,24 +55,26 @@ h3 {
 }
 
 /* Title Image */
+
 .title-image {
     width: 60%;
     transform: rotate(25deg);
 }
 
+/* Features Section */
+
 #features {
-    padding: 4rem;
-    text-align: center;
+    padding: 7% 15%;
 }
 
-.feature {
-    padding-bottom: 3rem;
+.feature-box {
+    text-align: center;
+    padding: 5%;
 }
 
 .feature-icon {
-    font-size: 4rem;
-    color: rgb(255, 154, 154);
-    padding-bottom: 1rem;
+    color: #ef8172;
+    margin-bottom: 1rem;
 }
 
 .feature-icon:hover {
