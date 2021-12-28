@@ -3,7 +3,6 @@ function getRandomNumber(max = 6) {
 	return Math.ceil(Math.random() * max);
 }
 
-const flag = "🚩";
 const winnerTitle = document.querySelector("h1");
 
 var randomNumber1 = getRandomNumber();
@@ -22,8 +21,8 @@ function updateWinner() {
 	} else {
 		winnerTitle.innerHTML = `${
 			randomNumber1 > randomNumber2
-				? `${flag} Player 1 Wins!`
-				: `Player 2 Wins! ${flag}`
+				? `🚩 Player 1 Wins!`
+				: `Player 2 Wins! 🚩`
 		}`;
 	}
 }
