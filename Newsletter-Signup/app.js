@@ -39,10 +39,11 @@ app.post("/", (req, res) => {
 
 	const options = {
 		method: "POST",
-		auth: "xoniv:b38fd0724da52ed24f39d4a457891bd3-us20",
+		auth: "xoniv:APIKEY",
 	};
 
 	const request = https.request(url, options, (response) => {
+		console.log(response);
 		if (response.statusCode === 200) {
 			res.sendFile(`${__dirname}/success.html`);
 			response.on("data", (data) => {
