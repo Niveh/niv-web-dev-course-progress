@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 let items = ["Buy Food", "Cook Food", "Eat Food"];
+let workItems = [];
 
 app.get("/", function (req, res) {
 	const today = new Date();
@@ -26,16 +27,39 @@ app.get("/", function (req, res) {
 	const day = today.toLocaleDateString("en-US", options);
 
 	res.render("list", {
-		kindOfDay: day,
+		listTitle: day,
 		newListItems: items,
 	});
 });
 
 app.post("/", function (req, res) {
 	const item = req.body.newItem;
-	items.push(item);
+	console.log(req.body);
+	if (req.body.list === "Work List") {
+		workItems.push(item);
+		res.redirect("/work");
+	} else {
+		items.push(item);
+		res.redirect("/");
+	}
+});
 
-	res.redirect("/");
+app.get("/work", function (req, res) {
+	res.render("list", {
+		listTitle: "Work List",
+		newListItems: workItems,
+	});
+});
+
+app.post("/work", function (req, res) {
+	const item = req.body.newItem;
+	workItems.push(workItems);
+
+	res.redirect("/work");
+});
+
+app.get("/about", function (req, res) {
+	res.render("about");
 });
 
 app.listen(3000, function () {
