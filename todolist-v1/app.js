@@ -1,10 +1,5 @@
-import express from "express";
-
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const express = require("express");
+const date = require(`./date.js`);
 
 const app = express();
 app.set("view engine", "ejs");
@@ -12,29 +7,19 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-let items = ["Buy Food", "Cook Food", "Eat Food"];
-let workItems = [];
+const items = ["Buy Food", "Cook Food", "Eat Food"];
+const workItems = [];
 
 app.get("/", function (req, res) {
-	const today = new Date();
-
-	const options = {
-		weekday: "long",
-		day: "numeric",
-		month: "long",
-	};
-
-	const day = today.toLocaleDateString("en-US", options);
-
 	res.render("list", {
-		listTitle: day,
+		listTitle: date.getDate(),
 		newListItems: items,
 	});
 });
 
 app.post("/", function (req, res) {
 	const item = req.body.newItem;
-	console.log(req.body);
+
 	if (req.body.list === "Work List") {
 		workItems.push(item);
 		res.redirect("/work");
@@ -53,7 +38,7 @@ app.get("/work", function (req, res) {
 
 app.post("/work", function (req, res) {
 	const item = req.body.newItem;
-	workItems.push(workItems);
+	workItems.push(item);
 
 	res.redirect("/work");
 });
