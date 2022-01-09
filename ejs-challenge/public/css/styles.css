@@ -1,10 +1,14 @@
-.container-fluid {
-	padding-top: 70px;
-	padding-bottom: 70px;
+* {
+	font-family: "Montserrat", sans-serif;
 }
+
+.container {
+	margin-top: 2rem;
+}
+
 .navbar {
-	padding-top: 15px;
-	padding-bottom: 15px;
+	text-align: center;
+	padding: 15px 10%;
 	border: 0;
 	border-radius: 0;
 	margin-bottom: 0;
