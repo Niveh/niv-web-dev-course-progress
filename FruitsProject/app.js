@@ -30,34 +30,70 @@ const fruit = new Fruit({
 const personSchema = new mongoose.Schema({
 	name: String,
 	age: Number,
+	favoriteFruit: fruitSchema,
 });
 
 const Person = mongoose.model("Person", personSchema);
 
+const pineapple = new Fruit({
+	name: "Pineapple",
+	rating: 9,
+	review: "Great fruit.",
+});
+
+// Fruit.deleteOne({ name: "Pineapple" }, function (err) {
+// 	if (err) throw err;
+
+// 	console.log("Removed pineapple");
+// });
+
+// pineapple.save();
+
+const mango = new Fruit({
+	name: "Mango",
+	rating: 10,
+	review: "This fruit is awesome!",
+});
+
+// mango.save();
+
+// Person.deleteOne({ _id: "61dc0bd52e1dcac664ba7175" }, function (err) {
+// 	if (err) throw err;
+
+// 	console.log("Removed person");
+// });
+
+// Person.updateOne({ name: "John" }, { favoriteFruit: mango }, function (err) {
+// 	if (err) throw err;
+
+// 	console.log("Updated John's favorite fruit to mango");
+// });
+
 const person = new Person({
-	name: "John",
-	age: 37,
+	name: "Amy",
+	age: 12,
+	favoriteFruit: pineapple,
 });
 
 // person.save();
 
-// const kiwi = new Fruit({
-// 	name: "Kiwi",
-// 	rating: 10,
-// 	review: "The best fruit!",
-// });
+const kiwi = new Fruit({
+	name: "Kiwi",
+	rating: 10,
+	review: "The best fruit!",
+});
 
-// const orange = new Fruit({
-// 	name: "Orange",
-// 	rating: 4,
-// 	review: "Too sour",
-// });
+const orange = new Fruit({
+	name: "Orange",
+	rating: 4,
+	review: "Too sour",
+});
 
-// const banana = new Fruit({
-// 	name: "Banana",
-// 	rating: 3,
-// 	review: "Weird texture",
-// });
+const banana = new Fruit({
+	name: "Banana",
+	rating: 3,
+	review: "Weird texture",
+});
 
 // // Fruit.insertMany([kiwi, orange, banana], function (err) {
 // // 	if (err) {
