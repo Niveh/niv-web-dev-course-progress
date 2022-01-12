@@ -10,7 +10,9 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+mongoose.connect(
+	"mongodb+srv://xoniv:dbniv@cluster0.m9x1m.mongodb.net/todolistDB"
+);
 
 const itemsSchema = new mongoose.Schema({
 	name: {
@@ -58,12 +60,14 @@ app.get("/", function (req, res) {
 
 				console.log("Default items saved to database.");
 			});
-		}
 
-		res.render("list", {
-			listTitle: "Today",
-			newListItems: items,
-		});
+			res.redirect("/");
+		} else {
+			res.render("list", {
+				listTitle: "Today",
+				newListItems: items,
+			});
+		}
 	});
 });
 
