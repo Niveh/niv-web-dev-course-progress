@@ -23,7 +23,9 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/blogDB");
+mongoose.connect(
+	"mongodb+srv://xoniv:dbniv@cluster0.m9x1m.mongodb.net/blogDB?retryWrites=true&w=majority"
+);
 
 const postsSchema = new mongoose.Schema({
 	title: {
@@ -71,14 +73,19 @@ app.get("/compose", function (req, res) {
 
 app.post("/compose", function (req, res) {
 	const post = new Post({
-		title: req.body.postTitle,
+		title: capitalize(req.body.postTitle),
 		body: req.body.postBody,
 		link: toKebabCase(req.body.postTitle),
 	});
 
-	post.save();
-	console.log("Saved post to database.");
-	res.redirect("/");
+	post.save(function (err) {
+		if (!err) {
+			console.log("Saved post to database.");
+			res.redirect("/");
+		} else {
+			console.log(err);
+		}
+	});
 });
 
 app.get("/posts/:postPath", function (req, res) {
@@ -98,6 +105,11 @@ app.get("/posts/:postPath", function (req, res) {
 	});
 });
 
-app.listen(3000, function () {
-	console.log("Server started on port 3000");
+let port = process.env.PORT;
+if (port == null || port == "") {
+	port = 3000;
+}
+
+app.listen(port, function () {
+	console.log(`Server started on port ${port}`);
 });
