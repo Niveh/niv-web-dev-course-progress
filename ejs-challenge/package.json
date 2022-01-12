@@ -8,6 +8,9 @@
   },
   "author": "Niv Haim",
   "license": "ISC",
+  "engines": {
+    "node": "16.13.2"
+  },
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.2",
