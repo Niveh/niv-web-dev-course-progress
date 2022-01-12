@@ -2,6 +2,11 @@
 	font-family: "Montserrat", sans-serif;
 }
 
+body {
+	background-color: rgb(51, 51, 51);
+	color: #fff;
+}
+
 .container {
 	margin-top: 2rem;
 }
@@ -29,7 +34,7 @@
 	bottom: 0;
 	width: 100%;
 	height: 60px;
-	background-color: #1abc9c;
+	background-color: #1abc9ca6;
 }
 
 .footer p {
