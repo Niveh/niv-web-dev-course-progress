@@ -19,14 +19,14 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: "AIzaSyBB-J_LMuZ7nij1hqNe-_wjUbvUPlDb2Zs",
-	authDomain: "check-in-86ac8.firebaseapp.com",
+	apiKey: "AIzaSyB0mlc7nH2iXoFRRR-sF3grh3Aq6gUukV4",
+	authDomain: "check-in-54703.firebaseapp.com",
 	databaseURL:
-		"https://check-in-86ac8-default-rtdb.europe-west1.firebasedatabase.app",
-	projectId: "check-in-86ac8",
-	storageBucket: "check-in-86ac8.appspot.com",
-	messagingSenderId: "689435073494",
-	appId: "1:689435073494:web:658e648e922b428555a277",
+		"https://check-in-54703-default-rtdb.europe-west1.firebasedatabase.app",
+	projectId: "check-in-54703",
+	storageBucket: "check-in-54703.appspot.com",
+	messagingSenderId: "212369265058",
+	appId: "1:212369265058:web:b80a83ef2a61eacddd22fb",
 };
 
 // Initialize Firebase
