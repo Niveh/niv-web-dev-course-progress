@@ -60,14 +60,37 @@ body {
 
 #work-container {
 	padding-bottom: 2%;
+	height: 85vh;
 }
 
 .yes {
-	border-color: rgba(14, 100, 28, 0.664);
+	border-color: #519259;
 	border-width: 3px;
 }
 
 .no {
-	border-color: rgba(211, 22, 22, 0.664);
+	border-color: #f05454;
 	border-width: 3px;
+}
+
+.table {
+	margin-top: 2%;
+}
+
+tr td.table-yes {
+	background-color: #519259;
+	color: #fff;
+}
+
+tr td.table-yes:after {
+	content: "Yes";
+}
+
+tr td.table-no {
+	background-color: #f05454;
+	color: #fff;
+}
+
+tr td.table-no:after {
+	content: "No";
 }

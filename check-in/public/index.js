@@ -49,17 +49,27 @@ document
 
 		const email = document.getElementById("login-email").value;
 		const password = document.getElementById("login-password").value;
+		const popup = document.getElementById("sign-in-error");
 
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				// Signed in
 				const user = userCredential.user;
-				// ...
+				popup.classList.add("hidden");
+				popup.textContent = "";
+
+				document.getElementById("login-email").value = "";
+				document.getElementById("login-password").value = "";
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(`ERROR ${errorCode}: ${errorMessage}`);
+				// console.log(`ERROR ${errorCode}: ${errorMessage}`);
+
+				popup.classList.remove("hidden");
+				popup.textContent = errorMessage;
+
+				document.getElementById("login-password").value = "";
 			});
 	});
 
@@ -70,6 +80,8 @@ document
 
 		const email = document.getElementById("register-email").value;
 		const password = document.getElementById("register-password").value;
+		const popup = document.getElementById("sign-up-error");
+		const closeModalBtn = document.getElementById("close-modal");
 
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
@@ -79,15 +91,27 @@ document
 					email: email,
 					workData: workData,
 				});
+
+				popup.classList.add("hidden");
+				popup.textContent = "";
+				closeModalBtn.click();
+
+				document.getElementById("register-email").value = "";
+				document.getElementById("register-password").value = "";
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(`ERROR ${errorCode}: ${errorMessage}`);
+				// console.log(`ERROR ${errorCode}: ${errorMessage}`);
+
+				popup.classList.remove("hidden");
+				popup.textContent = errorMessage;
+
+				document.getElementById("register-password").value = "";
 			});
 	});
 
-document.getElementById("sign-out").addEventListener("click", function (e) {
+document.getElementById("save-work").addEventListener("click", function (e) {
 	e.preventDefault();
 
 	const user = auth.currentUser;
@@ -98,6 +122,10 @@ document.getElementById("sign-out").addEventListener("click", function (e) {
 			workData: workData,
 		});
 	}
+});
+
+document.getElementById("sign-out").addEventListener("click", function (e) {
+	e.preventDefault();
 
 	signOut(auth)
 		.then(() => {
@@ -112,7 +140,7 @@ onAuthStateChanged(auth, (user) => {
 	if (user) {
 		// Signed in
 		const uid = user.uid;
-		console.log("Login", uid);
+		// console.log("Login", uid);
 		document.getElementById("main-container").classList.add("hidden");
 		document.getElementById("work-container").classList.remove("hidden");
 		document.getElementById(
@@ -121,13 +149,17 @@ onAuthStateChanged(auth, (user) => {
 
 		onValue(ref(db, "users/" + uid + "/workData"), (snapshot) => {
 			const data = snapshot.val();
-			updateSelections(data);
+			if (data) {
+				updateSelections(data);
+			}
 		});
 	} else {
 		// Signed out
-		console.log("user signed out");
+		// console.log("user signed out");
 		document.getElementById("main-container").classList.remove("hidden");
 		document.getElementById("work-container").classList.add("hidden");
+
+		resetWorkData();
 	}
 });
 
@@ -184,6 +216,47 @@ document.querySelectorAll(".btn-work").forEach((btn) => {
 	});
 });
 
+onValue(ref(db, "users/"), (snapshot) => {
+	const data = snapshot.val();
+	updateTable(data);
+});
+
+const updateTable = (data) => {
+	const table = document.getElementById("work-table");
+	table.innerHTML = "";
+
+	for (const user in data) {
+		const email = data[user].email;
+		const userData = data[user].workData;
+		let fullData = true;
+
+		for (const day in userData) {
+			if (!userData[day]) {
+				fullData = false;
+				break;
+			}
+		}
+
+		if (!fullData) {
+			// console.log(`Skipping ${email} - not full`);
+			continue;
+		}
+
+		table.innerHTML += `<tr>
+                            <th scope="row">${email}</th>
+                            <td class="table-${
+								userData["sunday"] === "yes" ? "yes" : "no"
+							}"></td>
+                            <td class="table-${
+								userData["monday"] === "yes" ? "yes" : "no"
+							}"></td>
+							<td class="table-${userData["tuesday"] === "yes" ? "yes" : "no"}"></td>
+							<td class="table-${userData["wednesday"] === "yes" ? "yes" : "no"}"></td>
+							<td class="table-${userData["thursday"] === "yes" ? "yes" : "no"}"></td>
+                        </tr>`;
+	}
+};
+
 const updateSelections = (data) => {
 	document.querySelectorAll(".btn-work").forEach((btn) => {
 		const day = btn.id.slice(0, btn.id.indexOf("-"));
@@ -204,6 +277,30 @@ const updateSelections = (data) => {
 				btn.classList.remove("btn-outline-danger");
 				workData[day] = "no";
 			}
+		}
+	});
+};
+
+const resetWorkData = () => {
+	workData["sunday"] = "";
+	workData["monday"] = "";
+	workData["tuesday"] = "";
+	workData["wednesday"] = "";
+	workData["thursday"] = "";
+
+	document.querySelectorAll(".btn-work").forEach((btn) => {
+		const day = btn.id.slice(0, btn.id.indexOf("-"));
+		const card = document.getElementById(day);
+
+		card.classList.remove("yes");
+		card.classList.remove("no");
+
+		if (btn.id.includes("yes")) {
+			btn.classList.remove("btn-success");
+			btn.classList.add("btn-outline-success");
+		} else if (btn.id.includes("no")) {
+			btn.classList.remove("btn-danger");
+			btn.classList.add("btn-outline-danger");
 		}
 	});
 };
