@@ -1,0 +1,96 @@
+html,
+body {
+	height: 100%;
+}
+
+body {
+	text-align: center;
+	display: flex;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f5f5f5;
+}
+
+.form-signin {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+}
+
+.form-signin .checkbox {
+	font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+#logo {
+	position: relative;
+	top: 2rem;
+	background-color: transparent;
+}
+
+.space {
+	margin-top: 2%;
+}
+
+.hidden {
+	visibility: hidden;
+	position: absolute;
+}
+
+.btn-work {
+	width: 80%;
+}
+
+#work-container {
+	padding-bottom: 2%;
+	height: 85vh;
+}
+
+.yes {
+	border-color: #519259;
+	border-width: 3px;
+}
+
+.no {
+	border-color: #f05454;
+	border-width: 3px;
+}
+
+.table {
+	margin-top: 2%;
+}
+
+tr td.table-yes {
+	background-color: #519259;
+	color: #fff;
+}
+
+tr td.table-yes:after {
+	content: "Yes";
+}
+
+tr td.table-no {
+	background-color: #f05454;
+	color: #fff;
+}
+
+tr td.table-no:after {
+	content: "No";
+}
