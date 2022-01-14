@@ -75,7 +75,10 @@ document
 			.then((userCredential) => {
 				// Signed in
 				const user = userCredential.user;
-				// ...
+				set(ref(db, "users/" + user.uid), {
+					email: email,
+					workData: workData,
+				});
 			})
 			.catch((error) => {
 				const errorCode = error.code;
