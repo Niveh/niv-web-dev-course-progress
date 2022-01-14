@@ -19,14 +19,14 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: "AIzaSyB0mlc7nH2iXoFRRR-sF3grh3Aq6gUukV4",
-	authDomain: "check-in-54703.firebaseapp.com",
+	apiKey: "",
+	authDomain: "",
 	databaseURL:
-		"https://check-in-54703-default-rtdb.europe-west1.firebasedatabase.app",
-	projectId: "check-in-54703",
-	storageBucket: "check-in-54703.appspot.com",
-	messagingSenderId: "212369265058",
-	appId: "1:212369265058:web:b80a83ef2a61eacddd22fb",
+		"",
+	projectId: "",
+	storageBucket: "",
+	messagingSenderId: "",
+	appId: "",
 };
 
 // Initialize Firebase
