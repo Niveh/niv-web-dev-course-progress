@@ -41,10 +41,33 @@ body {
 
 #logo {
 	position: relative;
-	top: 1rem;
+	top: 2rem;
 	background-color: transparent;
 }
 
-#btn-sign-up {
-	margin-top: 0.4rem;
+.space {
+	margin-top: 2%;
+}
+
+.hidden {
+	visibility: hidden;
+	position: absolute;
+}
+
+.btn-work {
+	width: 80%;
+}
+
+#work-container {
+	padding-bottom: 2%;
+}
+
+.yes {
+	border-color: rgba(14, 100, 28, 0.664);
+	border-width: 3px;
+}
+
+.no {
+	border-color: rgba(211, 22, 22, 0.664);
+	border-width: 3px;
 }
