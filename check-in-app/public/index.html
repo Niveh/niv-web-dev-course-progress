@@ -79,7 +79,7 @@
     <div id="work-container" class="container-fluid hidden">
         <div class="row">
             <div class="col">
-                <h3 id="welcome-email"></h3>
+                <h3>Hello, <span id="welcome-display-name"></span><br>What days are you working?</h3>
             </div>
         </div>
         <div class="row">
@@ -130,11 +130,45 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+                <button type="button" id="set-username" class="w-100 btn btn-lg btn-outline-dark space"
+                    data-bs-toggle="modal" data-bs-target="#setUsername">Set
+                    display name</button>
+            </div>
+            <div class="col-sm-4">
                 <button type="button" id="save-work" class="w-100 btn btn-lg btn-primary space">Save</button>
             </div>
-            <div class="col-sm-6">
-                <button type="button" id="sign-out" class="w-100 btn btn-lg btn-outline-primary space">Exit</button>
+            <div class="col-sm-4">
+                <button type="button" id="sign-out" class="w-100 btn btn-lg btn-outline-dark space">Sign out</button>
+            </div>
+        </div>
+        <div class="modal fade" id="setUsername" tabindex="-1" aria-labelledby="setUsername" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="setUsernameModalTitle">Set Display Name</h5>
+                        <button type="button" id="close-username-modal" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="set-username-error" class="alert alert-danger hidden" role="alert">
+
+                        </div>
+                        <div id="set-username-success" class="alert alert-success hidden" role="alert">
+
+                        </div>
+                        <form id="set-username-form">
+                            <div class="mb-3">
+                                <label class="form-label">Here you can change your display name, or leave empty to
+                                    remove it.</label>
+                                <input type="text" class="form-control" id="username-field" name="username"
+                                    placeholder="Display Name" />
+                            </div>
+                            <button id="set-username-save" type="submit" class="btn btn-warning btn-lg btn-block">Save
+                                changes</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">

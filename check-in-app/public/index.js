@@ -6,28 +6,44 @@ import {
 	signInWithEmailAndPassword,
 	onAuthStateChanged,
 	signOut,
+	updateProfile,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-auth.js";
 import {
 	getDatabase,
 	ref,
 	set,
+	get,
+	child,
 	onValue,
+	update,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+// Live Config
 const firebaseConfig = {
-	apiKey: "",
-	authDomain: "",
+	apiKey: "AIzaSyB0mlc7nH2iXoFRRR-sF3grh3Aq6gUukV4",
+	authDomain: "check-in-54703.firebaseapp.com",
 	databaseURL:
-		"",
-	projectId: "",
-	storageBucket: "",
-	messagingSenderId: "",
-	appId: "",
+		"https://check-in-54703-default-rtdb.europe-west1.firebasedatabase.app",
+	projectId: "check-in-54703",
+	storageBucket: "check-in-54703.appspot.com",
+	messagingSenderId: "212369265058",
+	appId: "1:212369265058:web:b80a83ef2a61eacddd22fb",
 };
+
+// Development Config
+// const firebaseConfig = {
+// 	apiKey: "AIzaSyAy9R7IpdQbblZtRskK-dzrlmf4w7IBAh8",
+// 	authDomain: "check-in-development-dc06f.firebaseapp.com",
+// 	databaseURL:
+// 		"https://check-in-development-dc06f-default-rtdb.europe-west1.firebasedatabase.app",
+// 	projectId: "check-in-development-dc06f",
+// 	storageBucket: "check-in-development-dc06f.appspot.com",
+// 	messagingSenderId: "1086106887898",
+// 	appId: "1:1086106887898:web:b053d935d2636ed2fce7e3",
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -90,6 +106,7 @@ document
 				set(ref(db, "users/" + user.uid), {
 					email: email,
 					workData: workData,
+					username: "",
 				});
 
 				popup.classList.add("hidden");
@@ -111,14 +128,76 @@ document
 			});
 	});
 
+document.getElementById("set-username").addEventListener("click", function (e) {
+	e.preventDefault();
+	const popupError = document.getElementById("set-username-error");
+	const popupSuccess = document.getElementById("set-username-success");
+	const usernameField = document.getElementById("username-field");
+
+	popupError.textContent = "";
+	popupError.classList.add("hidden");
+	popupSuccess.textContent = "";
+	popupSuccess.classList.add("hidden");
+	usernameField.value = "";
+});
+
+document
+	.getElementById("set-username-save")
+	.addEventListener("click", function (e) {
+		e.preventDefault();
+
+		const username = document.getElementById("username-field").value;
+		const closeUsernameModal = document.getElementById(
+			"close-username-modal"
+		);
+		const popupError = document.getElementById("set-username-error");
+		const popupSuccess = document.getElementById("set-username-success");
+
+		const user = auth.currentUser;
+		if (user !== null) {
+			updateProfile(user, {
+				displayName: username,
+			})
+				.then(() => {
+					// Success
+					popupSuccess.textContent = "Successfully changed username!";
+					popupSuccess.classList.remove("hidden");
+
+					popupError.textContent = "";
+					popupError.classList.add("hidden");
+					document.getElementById(
+						"welcome-display-name"
+					).textContent = `${
+						user.displayName ? user.displayName + "." : user.email
+					}`;
+
+					if (user.displayName) {
+						document.getElementById("set-username").textContent =
+							"Change display name";
+					} else {
+						document.getElementById("set-username").textContent =
+							"Set display name";
+					}
+				})
+				.catch((error) => {
+					// Fail
+					popupError.textContent = error.message;
+					popupError.classList.remove("hidden");
+				});
+
+			update(ref(db, "users/" + user.uid), {
+				username: username,
+			});
+		}
+	});
+
 document.getElementById("save-work").addEventListener("click", function (e) {
 	e.preventDefault();
 
 	const user = auth.currentUser;
 	if (user !== null) {
 		// console.log(user, workData);
-		set(ref(db, "users/" + user.uid), {
-			email: user.email,
+		update(ref(db, "users/" + user.uid), {
 			workData: workData,
 		});
 	}
@@ -130,6 +209,7 @@ document.getElementById("sign-out").addEventListener("click", function (e) {
 	signOut(auth)
 		.then(() => {
 			// Signed out
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
 		})
 		.catch((error) => {
 			// Error occured
@@ -141,11 +221,21 @@ onAuthStateChanged(auth, (user) => {
 		// Signed in
 		const uid = user.uid;
 		// console.log("Login", uid);
+		document.getElementById("welcome-display-name").textContent = `${
+			user.displayName ? user.displayName + "." : user.email
+		}`;
+
+		if (user.displayName) {
+			document.getElementById("set-username").textContent =
+				"Change display name";
+		} else {
+			document.getElementById("set-username").textContent =
+				"Set display name";
+		}
+
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		document.getElementById("main-container").classList.add("hidden");
 		document.getElementById("work-container").classList.remove("hidden");
-		document.getElementById(
-			"welcome-email"
-		).innerHTML = `Hello ${user.email}<br>What days are you working?`;
 
 		onValue(ref(db, "users/" + uid + "/workData"), (snapshot) => {
 			const data = snapshot.val();
@@ -226,7 +316,6 @@ const updateTable = (data) => {
 	table.innerHTML = "";
 
 	for (const user in data) {
-		const email = data[user].email;
 		const userData = data[user].workData;
 		let fullData = true;
 
@@ -242,8 +331,15 @@ const updateTable = (data) => {
 			continue;
 		}
 
+		let username = "";
+		if (data[user]["username"]) {
+			username = data[user]["username"];
+		} else {
+			username = data[user].email;
+		}
+
 		table.innerHTML += `<tr>
-                            <th scope="row">${email}</th>
+                            <th scope="row">${username}</th>
                             <td class="table-${
 								userData["sunday"] === "yes" ? "yes" : "no"
 							}"></td>
